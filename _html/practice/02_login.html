@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        #login, #member {
+            border-color: burlywood;
+            width: 300px;
+            height: 45px;
+        }
+        #login {
+            color: white;
+            background-color: burlywood;
+            margin-bottom: 3px;
+        }
+        #member {
+            color: brown;
+            background-color: white;
+        }
+        .fd {
+            border: 0px;
+            background-color: white;
+        }
+        .qq {
+            width: 300px;
+            height: 45px;
+            /* border-top: 0;
+            border-left: 0;
+            border-right: 0; */
+            border-width: 0 0 1px;
+        }
+        #kl, #nl {
+            background-color: white;
+            width: 300px;
+            height: 45px;
+        }
+        #kl {
+            border-color: burlywood;
+            margin-bottom: 3px;
+        }
+        #nl {
+            border-color: greenyellow;
+        }
+        input:focus {
+            outline:none;
+        }
+    </style>
+</head>
+<body>
+    <form action="" style="text-align: center;">
+        <h1>LOGIN</h1><br><br>
+        <p>
+            <input type="text" name="" class="qq" placeholder="아이디를 입력해주세요"><br>
+            <input type="password" name="" class="qq" placeholder="비밀번호를 입력해주세요">
+        </p>
+            <button type="button" id="login">로그인</button><br>
+            <button type="button" id="member">회원가입</button>
+        <p>
+            <button type="button" class="fd">아이디 찾기</button> |
+            <button type="button" class="fd">비밀번호 찾기</button> |
+            <button type="button" class="fd">비회원 주문조회</button>
+        </p>
+        <button type="button" id="kl">카카오 계정으로 로그인 하기 ></button><br>
+        <button type="button" id="nl">네이버 계정으로 로그인하기 ></button>
+    </form>
+</body>
+</html>
