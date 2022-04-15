@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>배경색, 배경 이지미</title>
+    <style>
+        div.container {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            border: 1px solid red;
+        }
+        .container > div:first-child {
+            width: 100px;
+            height: 100px;
+            background-color: blueviolet;
+            color: white;
+        }
+        .container > div:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            color: black;
+            background-color: rgba(255, 255, 0, 0.3);
+            /* background-color: rgba(255, 255, 0, .3); */
+            /* background-color: yellow;
+            opacity: 0.3; 컨탠츠에도 영향을 줌*/
+        }
+        .container > div:nth-child(3) {
+            border: 1px dotted blue;
+            color: white;
+            background-color: rgb(238, 238, 238);
+            width: 300px;
+            height: 300px;
+            background-image: url("../../_html/images/고양이.jpg");
+            background-position: center center;
+            background-size: 300px;
+            background-repeat: no-repeat;
+            /* background-attachment: fixed; */
+        }
+        .container > div:last-child {
+            border: 1px dashed green;
+            width: 300px;
+            height: 300px;
+            background-color: #111;
+        }
+        .container > div:last-child > div:first-child {
+            width: 300px;
+            height: 70px;
+            background-color: rgb(238, 238, 238);
+        }
+        .container > div:last-child > div:nth-child(2) {
+            width: 300px;
+            height: 170px;
+            background-image: url("../../_html/images/고양이.jpg");
+            background-position: center center;
+            background-size: 300px;
+            background-repeat: no-repeat;
+        }
+        .container > div:last-child > div:last-child {
+            width: 300px;
+            height: 60px;
+            background-color: rgb(238, 238, 238);
+        }
+    </style>
+</head>
+<body>
+    <h1>대부분의 태그는 배경 속성을 갖는다. Box Model을 기반</h1>
+    <div class="container">
+        <div> background-color</div>
+        <div>background-color + opacity : <br>
+            배경색과 투명도는 div태그 안의 모든 태그에 영향을 미친다</div>
+        <div>background image: 이미지 크기와 영역의 크기는 조정이 필요하다</div>
+        <div>
+            <div>여기에 보통 NAV, menu 구성</div>
+            <div></div>
+            <div>여기에 보통 Footer 구성</div>
+        </div>
+    </div>
+    <a href="index.html">index로 돌아가기</a>
+</body>
+</html>
