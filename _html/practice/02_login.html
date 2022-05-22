@@ -6,10 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <style>
-        #login, #member {
-            border-color: burlywood;
+        button {
+            background-color: white;
             width: 300px;
             height: 45px;
+        }
+        #login, #member {
+            border-color: burlywood;
         }
         #login {
             color: white;
@@ -18,34 +21,28 @@
         }
         #member {
             color: brown;
-            background-color: white;
         }
-        .fd {
-            border: 0px;
-            background-color: white;
-        }
-        .qq {
+        input {
             width: 300px;
             height: 45px;
-            /* border-top: 0;
-            border-left: 0;
-            border-right: 0; */
             border-width: 0 0 1px;
         }
-        #kl, #nl {
-            background-color: white;
-            width: 300px;
-            height: 45px;
-        }
         #kl {
+            color: burlywood;
             border-color: burlywood;
             margin-bottom: 3px;
         }
         #nl {
+            color: greenyellow;
             border-color: greenyellow;
         }
         input:focus {
             outline:none;
+        }
+        a {
+            color: black;
+            text-decoration: none;
+            font-size: 13px;
         }
     </style>
 </head>
@@ -59,12 +56,13 @@
             <button type="button" id="login">로그인</button><br>
             <button type="button" id="member">회원가입</button>
         <p>
-            <button type="button" class="fd">아이디 찾기</button> |
-            <button type="button" class="fd">비밀번호 찾기</button> |
-            <button type="button" class="fd">비회원 주문조회</button>
+            <a href="04_find_id.html">아이디 찾기</a> |
+            <a href="05_find_pwd.html">비밀번호 찾기</a> |
+            <a href="#">비회원 주문조회</a>
         </p>
         <button type="button" id="kl">카카오 계정으로 로그인 하기 ></button><br>
         <button type="button" id="nl">네이버 계정으로 로그인하기 ></button>
     </form>
+    <h3><a href="index.html">index.html 폴더로 돌아가기</a></h3>
 </body>
 </html>
