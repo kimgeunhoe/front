@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            text-align: center;
+        }
+        .ct, .mid {
+            border: 1px solid black;
+            margin-bottom: 2px;
+            width: 100px;
+        }
+        .sq {
+            width: 40px;
+            height: 40px;
+        }
+        .mid {
+            position: relative;
+            height: 100px;
+        }
+        .red {
+            background-color: red;
+            z-index: 3;
+            top: 8%;
+            left: 8%;
+            position: absolute;
+        }
+        .green {
+            background-color: green;
+            z-index: 2;
+            top: 28%;
+            left: 28%;
+            position: absolute;
+        }
+        .blue {
+            background-color: blue;
+            z-index: 1;
+            top: 48%;
+            left: 48%;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div class="ct">텍스트</div>
+    <div class="mid">
+        <div class="sq red"></div>
+        <div class="sq green"></div>
+        <div class="sq blue"></div>
+    </div>
+    <div class="ct">텍스트</div>
+    <a href="index.html">index로 돌아가기</a>
+</body>
+</html>
