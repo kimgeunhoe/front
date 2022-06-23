@@ -1,0 +1,40 @@
+body {
+    background-color: aquamarine;
+    text-align: center;
+}
+.container {
+    background-color: lavender;
+    width: 260px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border-radius: 5px;
+}
+#id, #pw, button {
+    border-radius: 5px;
+    border-style: none;
+    padding: 10px;
+}
+#id, #pw {
+    margin-bottom: 10px;
+    width: 220px;
+}
+button {
+    background-color: aquamarine;
+    color: white;
+    margin-bottom: 30px;
+    font-size: 16px;
+    width: 240px;
+}
+input:focus {
+    outline:none;
+}
+a {
+    color: gray;
+    font-size: 8px;
+}
+button:hover {
+    cursor: pointer;
+}
