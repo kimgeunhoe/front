@@ -1,0 +1,86 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+.header {
+    margin-bottom: 50px;
+}
+.header > div:first-child {
+    background-color: whitesmoke;
+}
+.logo {
+    padding: 0 10px;
+    line-height: 44px;
+    vertical-align: middle;
+}
+ul {
+    display: inline;
+    margin: 0 0 0 2px;
+    padding-left: 0;
+}
+.ul2 {
+    float: right;
+}
+li {
+    display: inline;
+    padding: 15px 5px;
+    color: gray;
+    font-size: 5px;
+    line-height: 44px;
+    vertical-align: middle;
+}
+li:hover {
+    cursor: pointer;
+}
+.mn {
+    height: 350px;
+    background-image: url("image/guitar.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-color: aqua;
+    text-align: center;
+    position: relative;
+}
+.mn > div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.mn > div div:first-child {
+    margin-bottom: 18px;
+    font-size: 32px;
+    color: white;
+}
+.mn > div div:nth-child(2) {
+    margin-bottom: 48px;
+    font-size: 22px;
+    color: white;
+}
+.mn > div > a {
+    padding: 10px 30px;
+    color: white;
+    background-color: #5900e7;
+    font-size: 16px;
+    text-decoration: none;
+}
+.alert {
+    margin-bottom: 16px;
+}
+.boxwrap {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    background-color: white;
+}
+.boxwrap .box {
+    border: 1px solid white;
+    display: table-cell;
+    vertical-align: middle;
+    padding: 0 15px 20px;
+    width: 22%;
+}
+.boxwrap .box .img {
+    width: 10%;
+}
