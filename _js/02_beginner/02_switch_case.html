@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Switch Case</title>
+</head>
+
+<body>
+    <h1>switch case절: equal연산을 기반으로 만들어지는 매핑방식의 조건문</h1>
+    <h3>equal연산 및 반복 탐색 연산에서 fi else문보다 속도가 조금 더 빠르다고 함</h3>
+    <script>
+        let week = 'Monday';
+        switch (week) {
+            case 'monday':
+                console.log('대소문자를 구분하기 때문에 monday는 equal연산에서 false');
+                break; //break;가 없으면 다음 case로 연산을 진행함
+            case 'Monday':
+                console.log('대소문자를 구분하기 때문에 monday는 equal연산에서 true');
+                break; //즉, break를 만날 때까지 코드가 실행된다는 의미
+
+            default: //if else fi else절의 else에 해당하는 절
+                console.log("위의 case조건이 어느 하나도 만족하지 않을 때 실행되는 영역");
+                break; //마찬가지로 break; 필수!!!
+        }
+    </script>
+    <h1>HTML, CSS, Javascript과목에 대한 데스트를 치뤘다고 가정</h1>
+    <ul>
+        <li>각 과목의 점수를 랜덤으로 60~100까지 생성하여 할당한 후</li>
+        <li>과목의 총점과 평균을 출력하시오</li>
+        <li>평균이 90점 이상이면 A, 80점 이상이면 B, 70점 이상이면 C, 60점 이상이면 D</li>
+        <li>단, 평균에 따른 학점산출은 switch문을 사용하여 작성할 것</li>
+    </ul>
+    <button id="bt">점수</button>
+    <div id="result"></div>
+    <script>
+        function score() {
+            let html = Math.floor(Math.random() * 41) + 60;
+            let css = Math.floor(Math.random() * 41) + 60;
+            let js = Math.floor(Math.random() * 41) + 60;
+            console.log(html, css, js);
+            let total = html + css + js;
+            let avg = total / 3;
+            let rank = "";
+            let key = parseInt(avg/10);
+            switch (key) {
+                case 10:
+                case 9:
+                    rank = "A";
+                    break;
+                case 8:
+                    rank = "B";
+                    break;
+                case 7:
+                    rank = "C";
+                    break;
+                default:
+                    rank = "D;"
+                    break;
+            }
+            document.getElementById('result').innerText = `HTML: ${html}, CSS: ${css}, Javascript: ${js}, 총점: ${total}, 평균: ${avg}, 학점: ${rank}`;
+        }
+        document.getElementById('bt').addEventListener('click', score);
+    </script>
+</body>
+
+</html>
