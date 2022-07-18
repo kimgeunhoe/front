@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON</title>
+</head>
+<body>
+    <h1>JSON: javascript object notation: 자바스크립트 객체 표현법</h1>
+    <ul>
+        <li>데이터의 요청 및 응답처리에 필요한 데이터의 표준 형식을 제공하는 타입</li>
+        <li>백엔드 언어의 종류에 관계없이 데이터 송수신을 단일 형식으로 통일함</li>
+        <li>데이터의 전송은 모두 string타입으로 이루어지기때문에 송수신 모듈에서 타입의 변환이 필요함</li>
+        <li>데이터 송신측 > json to string > JSON.stringify(jsObject)</li>
+        <li>데이터 수신측 > string to json > JSON.parse(stringData)</li>
+    </ul>
+    <script>
+        const stringData = '{"id": "0001","type": "donut","name": "Cake",'
+         + '"image":   {"url": "images/0001.jpg","width": 200,   "height": 200},'
+         + '"thumbnail":   {"url": "images/thumbnails/0001.jpg","width": 32,"height": 32}}';
+        
+        let parsedData = JSON.parse(stringData);
+        console.log(parsedData);
+        //parsedData를 console이나 html태그로 key:value형식으로 출력해보기
+        //반복문을 사용하여 접근할 것
+        for (const key in parsedData) {
+            if(key=='image' || key=='thumbnail') {
+                let nestedObject = parsedData[key];
+                for (const k in nestedObject) {
+                    console.log(k, ':', nestedObject[k]);
+                }
+            } else {
+                console.log(key, ":", parsedData[key]);
+            }
+        }
+
+        const myInfoData = {
+            "name": 'Kim',
+            "age": 27,
+            "blood": 'A',
+            "major": 'com',
+            "addr": 'Seoul'
+        };
+        let myInfoString = JSON.stringify(myInfoData);
+        console.log(typeof myInfoString);
+        console.log(myInfoString);
+
+
+        let str = '{';
+        for (const key in myInfoData) {
+            str += `"${key}":`;
+            if(isNaN(myInfoData[key])) {
+                str += `\"${myInfoData[key]}\",`; // \"하면 문자열 안에서 "쓰기 가능
+            } else {
+                str += `${myInfoData[key]},`;
+            }
+        }
+        str = str.substring(0, str.length-1);
+        str += '}';
+        console.log(str);
+        console.log(JSON.parse(str));
+    </script>
+</body>
+</html>
