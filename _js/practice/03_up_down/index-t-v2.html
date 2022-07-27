@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Up Down Game</title>
+</head>
+<body>
+    <h1><button type="button" id="randomBtn">랜덤숫자 생성 버튼</button></h1>
+    <h3 id="printMsg"></h3>
+    <h1>
+        <input type="number" id="myGuess" max="99" min="1">
+        <button type="button" id="guessBtn">맞춰보기</button>
+    </h1>
+    <h3 id="resultMsg"></h3>
+    <script>
+        let rnum = 0;
+        let count = 0;
+        function createRandomNum() {
+            rnum =  Math.floor(Math.random() * 99) + 1;
+            document.getElementById('printMsg').innerText = "컴퓨터가 랜덤으로 숫자를 생성하였습니다";
+        }
+        function compareNum() {
+            if(count < 5) {
+                document.getElementById('resultMsg').innerText = `시도횟수 ${count+1} :`;
+                count++;
+                let myGuess = parseInt(document.getElementById('myGuess').value);
+                document.getElementById('resultMsg').innerText += rnum == myGuess ? `정답입니다~컴퓨터 숫자는 ${rnum}이었습니다`
+                : rnum > myGuess ? 'up' : 'down';
+            }else{
+                document.getElementById('resultMsg').innerText = `시도횟수 : ${count+1} 초과로 게임을 더이상 진행할 수 없습니다!`;
+            }
+        }
+
+        document.getElementById('randomBtn').addEventListener('click', createRandomNum);
+        document.getElementById('guessBtn').addEventListener('click', compareNum);
+    </script>
+</body>
+</html>
