@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이미지 파일 구분</title>
+</head>
+<body>
+    <form action="">
+        <input type="text" id="fileName">
+        <button type="button" id="sbmBtn">전송</button>
+    </form>
+    <div id="ext"></div>
+    <script>
+        function imageFileVaild(fn) {
+            let imageFileName = fn.toLowerCase();
+            //console.log(imageFileName);
+            return imageFileName.endsWith("png") ? true
+            : imageFileName.endsWith("jpg") ? true
+            : imageFileName.endsWith("jpeg") ? true
+            : imageFileName.endsWith("gif") ? true
+            : false;
+        }
+        function print() {
+            if(imageFileVaild() == true) {
+                document.getElementById('ext').innerText = "이미지파일이면 정상파일입니다.";
+            }
+            else {
+                document.getElementById('ext').innerText = "이미지파일만 가능합니다.";
+            }
+        }
+        document.getElementById('sbmBtn').addEventListener('click', function(){
+            let fileName = document.getElementById('fileName').value;
+            let isImage = imageFileVaild(fileName);
+            console.log(`이미지 파일 여부:${isImage ? 'yes' : 'no'}`);
+        });
+    </script>
+</body>
+</html>
