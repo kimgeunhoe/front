@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="">
+        나의 성별 : <input type="text" id="myGen"><br>
+        나의 나이 : <input type="number" id="myAge"><br>
+        너의 성별 : <input type="text" id="yourGen"><br>
+        너의 나이 : <input type="number" id="yourAge"><br>
+        <button type="button" id="sbmBtn">호칭</button>
+    </form>
+    <h1 id="howCall"></h1>
+    <script>
+        function printHowCall(howCall) {
+            document.getElementById('howCall').innerText = howCall;
+        }
+        function whatShouldCallYou(mg, ma, ug, ua) {
+            let howCall = '';
+            if(ma == ua) {
+                howCall = '반갑다 친구야!'
+            }else if(ma > ua){
+                howCall = ug == 'm' ? '어이 남동생' : '오호 여동생';
+            }else {
+                if(mg == 'm') {
+                    howCall = ug == 'm' ? '형' : '누나';
+                }else {
+                    howCall = ug == 'm' ? '오빠' : '언니'
+                }
+            }
+            printHowCall(howCall);
+        }
+        function getInfo() {
+            let mg = document.getElementById('myGen').value;
+            let ma = document.getElementById('myAge').value;
+            let ug = document.getElementById('yourGen').value;
+            let ua = document.getElementById('yourAge').value;
+
+            whatShouldCallYou(mg, parseInt(ma), ug, parseInt(ua));
+        }
+        document.getElementById('sbmBtn').addEventListener('click',getInfo);
+    </script>
+</body>
+</html>
