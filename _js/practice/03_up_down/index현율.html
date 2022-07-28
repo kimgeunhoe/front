@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button type="button" id="start">시작</button> <br>
+    <input type="text" id="submit" placeholder="1~99의 숫자를 입력하세요">
+    <button type="button" id="check">확인</button>
+    <h1 id="answer">
+    </h1>
+    <script>
+        const answer = {
+            answer: Number("")
+        }
+        document.getElementById("start").addEventListener('click', function () {
+            answer.answer = Math.floor(Math.random() * 99) + 1;
+            console.log("ans: ", answer.answer);
+        })
+        document.getElementById("check").addEventListener('click', function () {
+            let submit = document.getElementById('submit').value;
+            let submitNum = Number(submit);
+
+            console.log(submit);
+
+            if (submitNum == NaN) {
+                document.getElementById('answer').innerHTML = "숫자를 다시 입력해주세요";
+            } else if (submitNum > 99) {
+                document.getElementById('answer').innerHTML = "숫자를 다시 입력해주세요";
+            } else if (submitNum < 0) {
+                document.getElementById('answer').innerHTML = "숫자를 다시 입력해주세요";
+            } else {
+                if (submitNum == answer.answer) {
+                    document.getElementById('answer').innerHTML = `정답입니다~ 컴퓨터 숫자는 ${answer.answer}입니다`;
+                } else if (submitNum < answer.answer) {
+                    document.getElementById('answer').innerHTML = "Up 정답은 더 큰 수 입니다";
+                } else {
+                    document.getElementById('answer').innerHTML = "Down 정답은 더 작은 수 입니다.";
+                }
+            }
+        })
+    </script>
+</body>
+</html>
