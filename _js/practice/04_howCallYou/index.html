@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>한국에서 호칭 선택하기</title>
+</head>
+<body>
+    <h1>외국인들이 가장 어려워하는 것 중 하나가 한국인들의 호칭</h1>
+    <h3>부르는 사람: 성별, 나이</h3>
+    <h3>부르는 대상: 성별, 나이</h3>
+    를 입력받으면 어떻게 부르는 지를 출력해주는 로직을 완성해보시오
+    <form action="">
+        부르는 사람 : <input type="text" id="cg" placeholder="성별: 남/여">, <input type="number" id="ca" placeholder="나이(숫자만)"><br>
+        부르는 대상 : <input type="text" id="lg" placeholder="성별: 남/여">, <input type="number" id="la" placeholder="나이(숫자만)"><br>
+        <button type="button" id="call">호칭</button>
+    </form>
+    <div id="result"></div>
+    <script>
+        document.getElementById('call').addEventListener('click', function() {
+            let cgd = document.getElementById('cg').value;
+            let cag = parseInt(document.getElementById('ca').value);
+            let lgd = document.getElementById('lg').value;
+            let lag = parseInt(document.getElementById('la').value);
+            
+            if((cgd == "남" || cgd == "여") && (lgd == "남" || lgd =="여") && cag > 0 && lag > 0) {
+                if(cgd == "남") {
+                    if(lgd =="남" && lag > cag) {
+                        document.getElementById('result').innerText = '형';
+                    }
+                    else if(lgd =="여" && lag > cag) {
+                        document.getElementById('result').innerText = '누나';
+                    }
+                    else if(lag == cag) {
+                        document.getElementById('result').innerText = '친구';
+                    }
+                    else {
+                        document.getElementById('result').innerText = '동생';
+                    }
+                }
+                else if(cgd=="여") {
+                    if(lgd=="남" && lag > cag) {
+                        document.getElementById('result').innerText = '오빠';
+                    }
+                    else if(lgd=="여" && lag > cag) {
+                        document.getElementById('result').innerText = '언니';
+                    }
+                    else if(lag == cag) {
+                        document.getElementById('result').innerText = '친구';
+                    }
+                    else {
+                        document.getElementById('result').innerText = '동생';
+                    }
+                }
+            }else {
+                document.getElementById('result').innerText = '값을 정확히 입력해주세요.';
+            }
+        })
+        
+    </script>
+</body>
+</html>
