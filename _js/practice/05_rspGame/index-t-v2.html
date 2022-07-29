@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가위 바위 보</title>
+</head>
+<body>
+    <h1>컴퓨터가 가위바위보를 정하면 나도 가위 바위 보 버튼 중 한개를 선택하여 게임을 한다</h1>
+    <h3>총 5번의 게임에서 각 게임마다 승 무 패를 출력한다</h3>
+    <button type="button" id="sc" value="0">가위</button>
+    <button type="button" id="rc" value="1">바위</button>
+    <button type="button" id="pp" value="2">보</button>
+    <h1 id="printResult"></h1>
+    <script>
+        let count = 0;
+        function printResult(msg) {
+            document.getElementById('printResult').innerHTML = msg;
+            document.getElementById('sc').disabled = true;
+            document.getElementById('sc').disabled = true;
+            document.getElementById('pp').disabled = true;
+
+        }
+        function choiceFromComputer() {
+            return Math.floor(Math.random() * 3);
+        }
+
+        function deecisionWinner(myChoice, comChoice) {
+            if (myChoice == comChoice) {
+                result = '무';
+            }
+            else {
+                if (myChoice == 0) {
+                    result = comChoice == '1' ? '패' : '승';
+                } else if (myChoice == 1) {
+                    result = comChoice == '0' ? '승' : '패';
+                } else {
+                    result = comChoice == '1' ? '승' : '패';
+                }
+            }
+            document.getElementById('printResult').innerText = result;
+        }
+
+        document.addEventListener('click', function (e) {
+            let targetId = e.target.id; //e.target.value;
+            //console.log(typeof targetid, targetId);
+            if (e.target.id == 'sc' || e.target.id == 'rc' || e.target.id == 'pp') {
+                if (count < 5) {
+                    let myChoice = document.getElementById('rc').value;
+                    deecisionWinner(myChoice, choiceFromComputer());
+                    count++;
+                } else {
+                    printResult("5번 끝");
+                }
+            }
+        });
+    </script>
+</body>
+</html>
