@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가위 바위 보</title>
+</head>
+
+<body>
+    <h1>컴퓨터가 가위바위보를 정하면 나도 가위 바위 보 버튼 중 한개를 선택하여 게임을 한다</h1>
+    <h3>총 5번의 게임에서 각 게임마다 승 무 패를 출력한다</h3>
+    <form action="">
+        <button type="button" id="comrsp">컴퓨터 랜덤 가위 바위 보</button><br>
+        <button type="button" id="s">가위</button><button type="button" id="r">바위</button><button type="button"
+            id="p">보</button>
+    </form>
+    <div id="result"></div>
+    <script>
+        function comrand() {
+            let rand = Math.floor(Math.random() * 3 + 1);
+            if (rand == 1) {
+                comrandrsp = 's';
+            }
+            else if (rand == 2) {
+                comrandrsp = 'r';
+            }
+            else {
+                comrandrsp = 'p';
+            }
+            document.getElementById('result').innerHTML += `<br>`;
+        }
+        function res() {
+            if (comrandrsp == 's') {
+                return myrsp == 's' ? '무' : myrsp == 'r' ? '승' : '패';
+            }
+            else if (comrandrsp == 'r') {
+                return myrsp == 'r' ? '무' : myrsp == 'p' ? '승' : '패';
+            }
+            else {
+                console.log(myrsp);
+                return myrsp == 'p' ? '무' : myrsp == 's' ? '승' : '패';
+            }
+        }
+
+        let count = 1;
+        let comrandrsp;
+        let myrsp;
+
+        if (count < 6) {
+            document.getElementById('result').innerText += `${count}번째`;
+            count++;
+            document.getElementById('comrsp').addEventListener('click', comrand);
+            document.getElementById('s').addEventListener('click', function () {
+                myrsp = 's';
+                document.getElementById('result').innerText += res();
+            });
+            document.getElementById('r').addEventListener('click', function () {
+                myrsp = 'r';
+                document.getElementById('result').innerText += res();
+            });
+            document.getElementById('p').addEventListener('click', function () {
+                myrsp = 'p';
+                document.getElementById('result').innerText += res();
+            });
+        }
+    </script>
+</body>
+
+</html>
