@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>종합소득세 계산해보기</title>
+</head>
+<body>
+    <h1>종합소득세 = 과세표준 * 소득세율</h1>
+    <ul>
+        과세표준 = 총소득액 - 총공제인정액
+        <li>총소득액 산출 = 시간당 pay를 입력받기, 하루 근무시간 입력 받기, 1년 근로일수 입력받기(1년 52주)</li>
+        <li>총공제인정액(약식신고%) = 랜덤으로 약식신고30.0% ~ 40.0%를 산출한다</li>
+        <li>과세표준의 해당구간의 세율을 부과하여 세액을 출력하세요</li>
+        <li><img src="tax_rate.png" alt="" width="500px"></li>
+    </ul>
+    <input type="number" id="hourPay" placeholder="시간당 페이">원
+    <input type="number" id="dayHour" placeholder="하루 근무시간">시간
+    <input type="number" id="workDay" placeholder="1년간 근로일수">일
+    <button type="button" id="taxcar">종합소득세 계산</button>
+    <div id="result"></div>
+    <script>
+        document.getElementById('taxcar').addEventListener('click', function() {
+            let pay = parseInt(document.getElementById('hourPay').value);
+            let work = parseInt(document.getElementById('dayHour').value);
+            let day = parseInt(document.getElementById('workDay').value);
+            let yearPay = pay * work * day; //총소득액
+            let per = ((Math.random() * 101 + 300) / 1000).toFixed(3);
+            if(per > 0.4) per = 0.4;
+            console.log(per*100);
+            let mn = yearPay * per; //총공제인정액
+            let over = yearPay - mn; //과세표준
+            let rate = 0; //소득세율
+            if(over <= 12000000) {
+                rate = 0.06;
+            }
+            else if(over > 12000000 && 46000000) {
+                rate = 0.15;
+            }
+            else if(over > 46000000 && over <= 88000000) {
+                rate = 0.24;
+            }
+            else if(over > 88000000 && over <= 150000000) {
+                rate = 0.35;
+            }
+            else if(over > 300000000 && over <= 500000000) {
+                rate = 0.38;
+            }
+            else if(over > 500000000 && over <= 1000000000) {
+                rate = 0.42;
+            }
+            else {
+                rate = 0.45;
+            }
+            let totalTax = over * rate; //종합소득세
+            document.getElementById('result').innerText =
+            `총 소득액: ${yearPay}원, 총공제인정액: ${Math.ceil(mn)}원, 과세표준: ${Math.ceil(over)}원, 
+            소득세율: ${rate * 100}%, 종합소득세: ${Math.ceil(totalTax)}원`;
+        });
+    </script>
+</body>
+</html>
