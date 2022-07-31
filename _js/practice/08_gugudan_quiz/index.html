@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>구구단 퀴즈</title>
+</head>
+<body>
+    <h1>구구단 영역(2x2=4 ~ 9x9=81)내에서 랜덤으로 한개의 문제를 내면 정답을 맞추는 로직</h1>
+    <ul>
+        <li>총 10개의 문제가 랜덤으로 출제되며</li>
+        <li>문제를 풀때 정답, 오답의 결과를 출력해야 하고</li>
+        <li>10문제 중에 정답의 갯수를 기록하여 정답률을 츌력한다</li>
+    </ul>
+    <button type="button" id="ask">시작</button><br>
+    <input type="number" id="res">
+    <button type="button" id="bt">제출</button>
+    <div id="print"></div>
+    <script>
+        let left = 0;
+        let right = 0;
+        let mul = 0;
+        let score = 0;
+        let count = 0;
+        function num() {
+            left = Math.floor(Math.random() * 8 + 2);
+            right = Math.floor(Math.random() * 8 + 2);
+            mul = left * right;
+            document.getElementById('print').innerHTML += `<br>${left} X ${right} = ?`;
+            return mul;
+        }
+        document.getElementById('ask').addEventListener('click', num);
+        document.getElementById('bt').addEventListener('click', function () {
+            document.getElementById('ask').disabled = true;
+            let correct = parseInt(document.getElementById('res').value);
+            document.getElementById('print').innerText += ` 쓴 답: ${correct}`;
+            if(mul == correct) {
+                document.getElementById('print').innerText += ` 정답!`;
+                score++;
+            }
+            else {
+                document.getElementById('print').innerText += ` 오답! 정답은 ${mul}입니다.`;
+            }
+            count++;
+            if(count < 10){
+                num();
+            }
+            else {
+                document.getElementById('print').innerHTML += `<br>${score}개 맟췄습니다. 정답률은 ${score * 10}%입니다.`
+                document.getElementById('bt').disabled = true;
+            }
+        });
+    </script>
+</body>
+</html>
