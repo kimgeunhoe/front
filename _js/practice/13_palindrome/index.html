@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>팰린드롬 : 거꾸로 읽어도 같은 단어</title>
+</head>
+<body>
+    <h1>팰린드롬 : 거꾸로 읽어도 같은 단어인지 판단하기</h1>
+    <ul>
+        <li>단어 입력을 받아 팰린드롬 여부를 출력하세요</li>
+        <li>테스트 단어 예시 : 토마토, 기러기, kayak 그외 일반 단어</li>
+    </ul>
+    <input type="text" id="palin">
+    <button type="button" id="bt">판별</button>
+    <div><span id="print"></span>는 팰린드롬이 <span id="result"></span>니다.</div>
+    <script>
+        document.getElementById('bt').addEventListener('click', function() {
+            let word = document.getElementById('palin').value;
+            let count = 0;
+            for(let i = 0; i <= word.length/2-1; i++) {
+                if(word.charAt(i) != word.charAt(word.length-i-1)) {
+                    count++;
+                    i = word.length;
+                }
+            }
+            document.getElementById('print').innerText = word;
+            if(count > 0) {
+                document.getElementById('result').innerText = '아닙';
+            } else {
+                document.getElementById('result').innerText = '맞습';
+            }
+        });
+    </script>
+</body>
+</html>
