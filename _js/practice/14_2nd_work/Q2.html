@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2nd Work Quiz 2</title>
+</head>
+<body>
+  <h1>
+    Counter 만들기 : 버튼을 누르면 숫자값이 버튼의 기능에 맞춰 값이 증감한다
+  </h1>
+  <h2 id="number">0</h2>
+  <div>
+    <button id="increase">+1</button>
+    <button id="decrease">-1</button>
+  </div>
+  <script>
+    let num = document.getElementById('number').innerText;
+    document.getElementById('increase').addEventListener('click', function() {
+      num++; //++연산자는 무조건 number형을 받기때문에 자동 형변환이 이루어진다. 안쓸때는 parseInt신경쓸 것
+      document.getElementById('number').innerText = num; //두줄합쳐서 ++num으로 했으면 됐을 듯. 생각 못했네
+    });
+    document.getElementById('decrease').addEventListener('click', function() {
+      num--;
+      document.getElementById('number').innerText = num;
+    });
+  </script>
+</body>
+</html>
