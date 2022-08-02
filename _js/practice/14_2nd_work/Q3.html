@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2nd Work Quiz 3</title>
+  <style>
+    button {
+      width: 50px;
+      height: 50px;
+      text-align: center;
+      margin-bottom: 5px;
+    }
+    h4 {
+      height: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>
+    단순 사칙연산 계산기 만들기 (+, -, *, /)
+  </h1>
+  <ul>
+    <li>
+      계산기의 작동은 버튼으로만 조작가능하다
+    </li>
+    <li>
+      연산자는 한 번만 사용하는 것으로 한다
+    </li>
+    <li>
+      버튼 : ., 0~9, +, -, *, /, =, C(clear)
+    </li>
+    <li>
+      계산기의 출력은 수식 = 결과의 형태이어여야 한다 : 12 + 34 = 46
+    </li>
+  </ul>
+  <h4 id="cal"></h4>
+  <button type="button" id="1">1</button>
+  <button type="button" id="2">2</button>
+  <button type="button" id="3">3</button>
+  <button type="button" id="sum">+</button><br>
+  <button type="button" id="4">4</button>
+  <button type="button" id="5">5</button>
+  <button type="button" id="6">6</button>
+  <button type="button" id="mi">-</button><br>
+  <button type="button" id="7">7</button>
+  <button type="button" id="8">8</button>
+  <button type="button" id="9">9</button>
+  <button type="button" id="mul">*</button><br>
+  <button type="button" id="dot">.</button>
+  <button type="button" id="0">0</button>
+  <button type="button" id="div">/</button>
+  <button type="button" id="eq">=</button>
+  <button type="button" id="clear">C</button>
+  <script>
+    let op = '';
+    document.getElementById('1').addEventListener('click', function () {
+      document.getElementById('cal').innerText += 1;
+    });
+    document.getElementById('2').addEventListener('click', function () {
+      document.getElementById('cal').innerText += 2;
+    });
+    document.getElementById('3').addEventListener('click', function () {
+      document.getElementById('cal').innerText += 3;
+    });
+    document.getElementById('4').addEventListener('click', function () {
+      document.getElementById('cal').innerText += 4;
+    });
+    document.getElementById('5').addEventListener('click', function () {
+      document.getElementById('cal').innerText += 5;
+    });
+    document.getElementById('6').addEventListener('click', function () {
+      document.getElementById('cal').innerText += 6;
+    });
+    document.getElementById('7').addEventListener('click', function () {
+      document.getElementById('cal').innerText += 7;
+    });
+    document.getElementById('8').addEventListener('click', function () {
+      document.getElementById('cal').innerText += 8;
+    });
+    document.getElementById('9').addEventListener('click', function () {
+      document.getElementById('cal').innerText += 9;
+    });
+    document.getElementById('0').addEventListener('click', function () {
+      document.getElementById('cal').innerText += 0;
+    });
+    document.getElementById('dot').addEventListener('click', function () {
+      document.getElementById('cal').innerText += '.';
+    });
+    document.getElementById('sum').addEventListener('click', function () {
+      document.getElementById('cal').innerHTML += ' +&nbsp';
+      op = '+';
+    });
+    document.getElementById('mi').addEventListener('click', function () {
+      document.getElementById('cal').innerHTML += ' -&nbsp';
+      op = '-';
+    });
+    document.getElementById('mul').addEventListener('click', function () {
+      document.getElementById('cal').innerHTML += ' *&nbsp';
+      op = '*';
+    });
+    document.getElementById('div').addEventListener('click', function () {
+      document.getElementById('cal').innerHTML += ' /&nbsp';
+      op = '/';
+    });
+    document.getElementById('eq').addEventListener('click', function () {
+      let c = document.getElementById('cal').innerText;
+      let a = parseFloat(c.substring(0, c.indexOf(op) - 1));
+      let b = parseFloat(c.substring(c.indexOf(op) + 2, c.length));
+      document.getElementById('cal').innerText += ' =';
+      switch (op) {
+        case '+':
+          document.getElementById('cal').innerText += ` ${a + b}`;
+          break;
+        case '-':
+          document.getElementById('cal').innerText += ` ${a - b}`;
+          break;
+        case '*':
+          document.getElementById('cal').innerText += ` ${a * b}`;
+          break;
+        case '/':
+          document.getElementById('cal').innerText += ` ${a / b}`;
+          break;
+        default:
+          break;
+      }
+    });
+    document.getElementById('clear').addEventListener('click', function () {
+      document.getElementById('cal').innerText = '';
+    });
+    // 버튼이 많으니 document.addEventListener('click', function (e) {};로 뭉쳐 쓰면 좋다. 강사님꺼 참고. 조심할 것은 버튼이 아닌 곳을 클릭해도 반응함
+
+    /* const fomula = document.getElementById('cal');
+    let fomulaValue = "";
+
+    function operation(f, o, l) {
+      let result = 0;
+      switch(o) {
+        case "+":
+          result = f + l;
+          break;
+        case "-":
+          result = f - l;
+          break;
+        case "*":
+          result = f * l;
+          break;
+        case "/":
+          result = f / l;
+          break;
+        default:
+          break;
+      }
+      return result.toFixed(2);
+    }
+    
+    function extractValue(strValue) {
+      let firstNum = strvalue.substring(0, strValue.indexOf(" "));
+      let operator = strValue.substr(strValue.indexOf(" ")+1, 1);
+      let lastNum = strValue.substring(strValue.lastIndexOf(" ")+1);
+
+      return operation(parseFloat(firstNum), operator, parseFloat(lastNum));
+    }
+    
+    document.addEventListener('click', function (e) {
+      let btnValue = e.target.value; //e.target.id도 가능
+
+      if (!isNaN(btnValue)) { //숫자일 때
+        fomulaValue += btnValue;
+      } else {
+        if (btnvalue != undefined) { //버튼을 클릭하면 > 화면의 다른 부분을 클릭한게 아님
+          switch (btnValue) {
+            case "c":
+              fomulaValue = "";
+              fomula.innerText = "";
+              break;
+            case ".":
+              fomulaValue += btnValue;
+              break;
+            default:
+              let result = "";
+              if (btnValue == "=") {
+                result = extractValue(fomulaValue);
+              }
+              fomulaValue += ` ${btnValue} `;
+              
+              if(result.toString()) {
+                fomulaValue += result;
+              }
+              break;
+          }
+        }
+      }
+      fomula.innerText = fomulaValue;
+    }); */
+  </script>
+</body>
+</html>
