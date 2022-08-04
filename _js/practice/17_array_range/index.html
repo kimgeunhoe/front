@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>배열 만들기</title>
+</head>
+<body>
+    <h1>아래와 같이 배열을 만드는 range함수를 완성해보세요</h1>
+    <ul>
+        <li>range(1, 6, 1) => [1, 2, 3, 4, 5]</li>
+        <li>range(3, 10 ,2) => [3, 5, 7, 9]</li>
+        <li>range(10, -10 ,-4) => [10, 6, 2, -2, -6]</li>
+    </ul>
+    <input type="number" id="start">
+    <input type="number" id="end">
+    <input type="number" id="step">
+    <button type="button" id="bt">출력</button>
+    <div id="result"></div>
+    <script>
+        function range(a, b, c) {
+            let arr = [];
+            if(a < b) {
+                for(let i=a; i < b; i += c) {
+                    arr.push(i);
+                }
+            }
+            else {
+                for(let i=a; i > b; i += c) {
+                    arr.push(i);
+                }
+            }
+            return arr;
+        }
+        document.getElementById('bt').addEventListener('click', function() {
+            let first = parseInt(document.getElementById('start').value);
+            let second = parseInt(document.getElementById('end').value);
+            let third = parseInt(document.getElementById('step').value);
+            document.getElementById('result').innerText = `range(${first}, ${second}, ${third}) => [${range(first, second, third)}]`;
+        });
+    </script>
+</body>
+</html>
