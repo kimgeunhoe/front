@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>24절기</title>
+</head>
+<body>
+    <h1>24절기의 절기를 배열에 순서대로 저장 후 랜덤으로 몇 번째 절기는? 묻는 문제</h1>
+    <ul>
+        <li>24절기를 배열에 선언한다</li>
+        <li>24절기를 배열의 인덱스 번호를 활용하여 랜덤으로 몇번 째 절기는? 문제 출제 버튼</li>
+        <li>입력해서 정답 확인 버튼을 클릭하면 정답 여부와 오답일 경우 정답을 출력한다</li>
+    </ul>
+    <button type="button" id="bt">문제 출제</button>
+    <div id="sn"></div>
+    <input type="text" id="result">
+    <button type="button" id="btn">정답 확인</button>
+    <div id="res"></div>
+    <h1 id="ratio">10번의 문제를 출제한 후 10문제를 모두 풀면 더이상 출제가 안되고 정답률이 출력되도록 해보세요</h1>
+    <script>
+        const seasonal = ['입춘', '우수', '경칩', '춘분', '청명', '곡우', '입하', '소만', '망종', '하지', '소서', '대서', '입추', '처서', '백로', '추분',
+                            '한로', '상강', '입동', '소설', '대설', '동지', '소한', '대한'];
+        const ansHistory = [];
+        let num = 0;
+        let count = 0;
+        document.getElementById('bt').addEventListener('click', function() {
+            document.getElementById('res').innerText = "";
+            num = Math.floor(Math.random()*24 + 1);
+            document.getElementById('sn').innerText = `${num}번 째 절기는?`;
+        });
+        document.getElementById('btn').addEventListener('click', function() {
+            let season = document.getElementById('result').value;
+            document.getElementById('res').innerText = seasonal[num-1] == season ? '정답입니다' : `오답입니다. 정답은 ${seasonal[num-1]}입니다`;
+            /* if(seasonal[num-1] == season) {
+                count++;
+                console.log(count);
+                ansHistory.push(document.getElementById('res').innerText);
+            } else {
+                 ansHistory.push(document.getElementById('res').innerText);
+            } */
+            ansHistory.push(document.getElementById('res').innerText);
+            if(ansHistory.length == 10) {
+                for(let i of ansHistory) {
+                    if(i == '정답입니다') {
+                        count++;
+                    }
+                }
+                document.getElementById('bt').disabled = true;
+                document.getElementById('btn').disabled = true;
+                document.getElementById('ratio').innerText = `10문제 중 정답률: ${count/ansHistory.length*100}%`;
+            }
+        });
+    </script>
+</body>
+</html>
