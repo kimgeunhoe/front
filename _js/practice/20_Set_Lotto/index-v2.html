@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로또추첨기 Ver 2.0</title>
+</head>
+<body>
+    <h1>1~45까지의 중복되지 않는 숫자 6개가 랜덤으로 추출 후 순서대로 출력하기. 단, Set객체를 사용하지않고 중복검사 로직을 만들어서 구현할 것</h1>
+    <script>
+        const lotto = [];
+        
+        for(let i=0; i<6; i++) {
+            lotto.push(Math.floor(Math.random()*45 + 1));
+            for(let j=0; j<i; j++) { //array method 중 find나 includes사용했으면 코드가 더 간결해졌을듯. 배열 메소드 공부하기.
+                if(lotto[i]==lotto[j]) {
+                    lotto.pop();
+                    i--;
+                    break;
+                }
+            }
+        }
+        console.log(lotto);
+
+        for(let i=0; i<lotto.length; i++) {
+            for(let j=i+1; j<lotto.length; j++) {
+                if(lotto[i] > lotto[j]) {
+                    temp = lotto[i];
+                    lotto[i] = lotto[j];
+                    lotto[j] = temp;
+                }
+            }
+        }
+        console.log(lotto);
+    </script>
+</body>
+</html>
