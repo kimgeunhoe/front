@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz 3</title>
+</head>
+<body>
+  <h1>
+    Q3. 2자리 이상의 양의 정수를 입력하고 그 수까지의 홀수의 합과 짝수의 합을 출력하기 (복습용)
+  </h1>
+  <input type="number" id="number" placeholder="1 ~ 99의 정수">
+  <button type="button" id="bt">입력</button>
+  <div id="result"></div>
+  <script>
+    document.getElementById('bt').addEventListener('click', function() {
+      let num = parseInt(document.getElementById('number').value);
+      let odd = 0;
+      let even = 0;
+      if(num>9 && num<100) {
+        for(let i=0; i<=num; i++) {
+          if(i%2==1) {
+            odd += i;
+          }
+          else {
+            even += i;
+          }
+        }
+        document.getElementById('result').innerText = `${num}까지의 홀수의 합은 ${odd}, 짝수의 합은 ${even}`;
+      }
+      else {
+        document.getElementById('result').innerText = '10 ~ 99의 숫자를 입력하세요';
+      }
+    });
+  </script>
+</body>
+</html>
