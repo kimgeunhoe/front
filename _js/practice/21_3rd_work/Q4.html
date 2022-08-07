@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz 4</title>
+</head>
+<body>
+  <h1>
+    Q4. 입력할 인원수를 입력받고 각 인원의 이름과 나이를 입력받으면 리스트로 출력하기 (과제용)
+  </h1>
+    인원수: <input type="number" id="people">명
+    <button type="button" id="bt">인원수 입력</button>
+    <div id="box"></div>
+    <button type="button" id="btn" style="display: none">정보 입력 및 출력</button>
+    <ol id="result"></ol>
+    <script>
+      let num = 0;
+      
+      document.getElementById('bt').addEventListener('click', function() {
+        num = parseInt(document.getElementById('people').value);
+        for(let i=0; i<num; i++) {
+          document.getElementById('box').innerHTML += `이름: <input type="text" id="name${i}"> 나이: <input type="number" id="age${i}"><br>`;
+        }
+        document.getElementById('bt').disabled = true;
+        document.getElementById('btn').style.display = '';
+      });
+      
+      document.getElementById('btn').addEventListener('click', function() {
+        for(let i=0; i<num; i++) {
+          document.getElementById('result').innerHTML += `<li>${document.getElementById('name'+i).value} ${document.getElementById('age'+i).value}세</li>`;
+        }
+      });
+    </script>
+</body>
+</html>
