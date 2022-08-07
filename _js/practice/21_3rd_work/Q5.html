@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz 5</title>
+</head>
+<body>
+  <h1>
+    Q5. 6과목 점수를 입력하면 평균 90이상 : A부터 10점 간격으로 B, C, D, 60점 미만은 F를 판단하여 출력하기 (과제용)
+  </h1>
+  <div id="result"></div>
+  <script>
+    function add(total, num) {
+      return total + num;
+    }
+    
+    let score = [];
+    
+    for(let i=0; i<6; i++) {
+      score[i] = Math.floor(Math.random()*101);
+    }
+    
+    let avg = score.reduce(add)/6;
+    
+    document.getElementById('result').innerText = avg >= 90 ? 'A' : avg >= 80 ? 'B' : avg >= 70 ? 'C' : avg >= 60 ? 'D' : 'F';
+  </script>
+</body>
+</html>
