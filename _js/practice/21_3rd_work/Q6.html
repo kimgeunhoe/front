@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz 6</title>
+  <style>
+    table {
+      margin-top: 10px;
+      text-align: center;
+    }
+    td {
+      width: 100px;
+    }
+  </style>
+</head>
+<body>
+  <h1>
+    Q6. 데이터를 입력할 인원수를 입력받고, 각 개인의 HTML, CSS, JS 과목의 점수를 입력하면 각 과목 점수, 총점, 평균을 html의 리스트나 table 태그에 출력하기 (과제용)
+  </h1>
+  <input type="number" id="people">명
+  <button type="button" id="bt">인원수 입력</button>
+  <div id="box"></div>
+  <button type="button" id="btn" style="display: none">각 과목 점수, 총점, 평균 출력</button>
+  <div id="result"></div>
+  <script>
+    let num = 0;
+    
+    document.getElementById('bt').addEventListener('click', function () {
+      num = parseInt(document.getElementById('people').value);
+      for (let i = 0; i < num; i++) {
+        document.getElementById('box').innerHTML += `Html: <input type="number" id="html${i}"> CSS: <input type="number" id="css${i}"> Javascript: <input type="number" id="js${i}"><br>`;
+      }
+      document.getElementById('bt').disabled = true;
+      document.getElementById('btn').style.display = '';
+    });
+
+    document.getElementById('btn').addEventListener('click', function () {
+      let str = '<table border="1" width="500" height="300"><tr><th>HTML</th><th>CSS</th><th>Javascript</th><th>총점</th><th>평균</th></tr>';
+      let a, b, c;
+      for (let i = 0; i < num; i++) {
+        a = parseInt(document.getElementById('html' + i).value);
+        b = parseInt(document.getElementById('css' + i).value);
+        c = parseInt(document.getElementById('js' + i).value);
+        str += `<tr><td>${a}점</td><td>${b}점</td><td>${c}점</td><td>${a + b + c}점</td><td>${((a + b + c) / 3).toFixed(2)}점</td></tr>`;
+      }
+      str += '</table>';
+      document.getElementById('result').innerHTML = str;
+    });
+  </script>
+</body>
+</html>
