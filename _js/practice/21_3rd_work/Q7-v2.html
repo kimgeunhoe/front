@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz 7</title>
+</head>
+<body>
+  <h1>
+    Q7. 호텔 객실 관리 프로그램 만들기 (도전용)
+  </h1>
+  <ul>
+    <li>
+      5층, 각 층당 10호실, 총 50개의 객실보유한 호텔
+    </li>
+    <li>
+      메뉴버튼종류 > 객실현황보기, 입실, 퇴실, 초기화 > 클릭하면 기능 수행
+    </li>
+    <li>
+      관리할 호수 입력받고 각 기능 버튼을 클릭하는 프로세스 (간단하게 만들 수 있는 형태)
+    </li>
+    <li>
+      객실현황보기 버튼 > 방번호, 입실시간, 퇴실처리시간, 사용중 or 빈방 이라는 정보 출력
+    </li>
+    <li>
+      입실 > 사용중이면 입실불가, 빈방이면 입실완료 후 방정보 변경처리
+    </li>
+    <li>
+      퇴실 > 빈방이면 퇴실불가, 사용중이면 퇴실완료 후 방정보 변경처리
+    </li>
+    <li>
+      초기화 > 모든 방정보를 리셋
+    </li>
+  </ul>
+  <input type="number" id="roomInput" maxlength="3"><br>
+  <button type="button" id="status">객실현황보기</button>
+  <button type="button" id="checkIn">입실</button>
+  <button type="button" id="checkOut">퇴실</button>
+  <button type="button" id="reset">초기화</button>
+  <div id="roomStatus"></div>
+  <script src="Q7_hotel.js"></script>
+</body>
+</html>
