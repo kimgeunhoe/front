@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>숫자 야구 게임</title>
+</head>
+<body>
+    <h1>0 ~ 9의 중복되지 않는 정수 3개를 랜덤으로 출제하면 맞추는 게임</h1>
+    <h3>게임 규칙</h3>
+    <ol>
+        <li>세자리의 숫자는 각 자리수를 갖고 서로 중복되지 않는다</li>
+        <li>각 자리수와 입력한 숫자의 자리수가 동일하면 1 Strike(스트라이크)</li>
+        <li>입력한 숫자가 포함되어 있으나 자리수가 동일하지않으면 1 Ball(볼)</li>
+        <li>입력한 숫자가 전혀 포함되어 있지 않으면 Out(아웃)</li>
+        <li>3스트라이크면 1게임 종료</li>
+        <li>플레이 예시 <br> 컴숫자(429) > 내추측숫자(417) > 1S <br>
+            컴숫자(429) > 내추측숫자(491) > 1S 1B <br>
+            컴숫자(429) > 내추측숫자(742) > 2B <br>
+            컴숫자(429) > 내추측숫자(381) > Out
+        </li>
+    </ol>
+    <h3>제작 규칙</h3>
+    <ul>
+        <li>1게임을 완료한 시간을 기록할 것</li>
+        <li>게임을 진행하면서 숫자 추측 시도 횟수도 기록할 것</li>
+        <li>페이지를 리프레쉬하거나 내부 프로그램을 종료하기 전까지의 기록을 오름차순으로 정렬하여 출력할 것</li>
+    </ul>
+    <hr style="border-width: 5px; background-color: brown;">
+    <button type="button" id="startBtn">게임 시작</button>
+    <h1 id="comMsg"></h1>
+    <input type="text" id="myNum">
+    <button type="button" id="tryBtn">입력</button>
+    <ol id="tries"></ol>
+    <button type="button" id="historyBtn">게임기록확인</button>
+    <ol id="history"></ol>
+
+    <script>
+        const comSet = new Set();
+        let comNums = [];
+        let count = 0;
+        const duration = {start:0, finish:0};
+        const gameHistory = [];
+        
+        document.getElementById('startBtn').addEventListener('click', makeGame);
+        document.getElementById('tryBtn').addEventListener('click', compareNum);
+        document.getElementById('historyBtn').addEventListener('click', compareNum);
+        
+        function printHistory() {
+            let historyElem = document.getElementById('history');
+            historyElem.innerHTML = '';
+            gameHistory.sort((a, b) => a.gap-b.gap);
+            for (const game of gameHistory) {
+                historyElem.innerHTML += `<li>${game.date}, ${game.gap}, ${game.tries}</li>`;
+            }
+        }
+
+        function compareNum() {
+            document.getElementById('comMsg').innerText = '';
+            let myNumElem = document.getElementById('myNum');
+            let myNums = myNumElem.value.split("");
+            console.log(myNums);
+            
+            if(isNaN(parseInt(myNums[0]))||isNaN(parseInt(myNums[1]))||isNaN(parseInt(myNums[2]))) { //isNaN(myNum)
+                document.getElementById('tries').innerHTML += `<li>0 ~ 9의 숫자만 입력해주세요</li>`;
+            } else if(myNums.length!=3) {
+                document.getElementById('tries').innerHTML += `<li>3자리수를 입력해주세요</li>`;
+            } else if(myNums[0]==myNums[1]||myNums[0]==myNums[2]||myNums[1]==myNums[2]) { //new Set(myNum.split("")).size!=3
+                document.getElementById('tries').innerHTML += `<li>중복된 값이 있습니다</li>`;
+            } else {
+                count++;
+                let strike = 0, ball = 0;
+                for(let i=0; i<comNums.length; i++) {
+                    for(let j=0; j<myNums.length; j++) {
+                        if(comNums[i]==myNums[j]) {
+                            if(i==j) {
+                                strike++;
+                            } else {
+                                ball++;
+                            }
+                            break;
+                        }
+                    }
+                }
+    
+                if(strike==0&&ball==0) {
+                    document.getElementById('tries').innerHTML += `<li>out</li>`;
+                } else {
+                    if(strike==3) {
+                        duration.finish = new Date();
+                        saveToGameHistory();
+                    } else {
+                        document.getElementById('tries').innerHTML += `<li>${myNums} => ${strike}S, ${ball}B</li>`;
+                    }
+                }
+            }
+           
+            myNumElem.value = "";
+            myNumElem.focus();
+        }
+        
+        function saveToGameHistory() {
+            let gameInfo = {
+                date: new Date(),
+                gap: duration.finish - duration.start,
+                tries: count
+            };
+            console.log(gameInfo);
+            gameHistory.push(gameInfo);
+        }
+        
+        function makeGame() {
+            comSet.clear();
+            comNums = [];
+            count = 0;
+            document.getElementById('tries').innerHTML = '';
+
+            do {
+                let rNum = Math.floor(Math.random()*10);
+                comSet.add(rNum);
+            } while(comSet.size<3);
+            
+            document.getElementById('comMsg').innerText = '컴퓨터가 숫자를 결정했습니다!';
+            comSet.forEach(function(v) {
+                comNums.push(v);
+            });
+            console.log(comNums);
+            duration.start = new Date();
+        }
+    </script>
+</body>
+</html>
