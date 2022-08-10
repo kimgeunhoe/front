@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        a:hover {
+            cursor: pointer;
+        }       
+    </style>
+</head>
+<body>
+    <h1>Travel</h1>
+    <ul>
+        <li><a class="city home">Home</a></li>
+        <li><a class="city seoul">Seoul</a></li>
+        <li><a class="city tokyo">Tokyo</a></li>
+        <li><a class="city paris">Paris</a></li>
+    </ul>
+    <img src="images/home.jpg" alt="Home" id="cityImg">
+    <h4><a href="../index.html">index로 돌아가기</a></h4>
+    <script>
+        document.addEventListener('click', (e) => {
+            let now = e.target.classList[1];
+            const as = document.getElementsByTagName('a');
+            
+            for (const a of as) {
+                if(now==a.classList[1]) {
+                    a.style.fontWeight = 'bold';
+                } else {
+                    a.style.fontWeight = '';
+                }
+            }
+
+            document.getElementById('cityImg').src = `images/${e.target.classList[1]}.jpg`;
+        });
+
+        const aTags = document.querySelectorAll('.city');
+        const imgTag = document.querySelector('img');
+
+        for(let i=0; i<aTags.length; i++) {
+            aTags[i].addEventListener('click', () => {
+                imgTag.src = `images/${aTags[i].classList[1]}.jpg`;
+            });
+            aTags[i].style.setProperty('curser', 'pointer');
+            aTags.forEach((elem) => {
+                elem.classList.remove('curr_view');
+            })
+            aTags[i].classList.add('curr_view');
+        }
+    </script>
+</body>
+</html>
