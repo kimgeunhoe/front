@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>숫자 야구 게임</title>
+</head>
+<body>
+    <h1>0 ~ 9의 중복되지 않는 정수 3개를 랜덤으로 출제하면 맞추는 게임</h1>
+    <h3>게임 규칙</h3>
+    <ol>
+        <li>세자리의 숫자는 각 자리수를 갖고 서로 중복되지 않는다</li>
+        <li>각 자리수와 입력한 숫자의 자리수가 동일하면 1 Strike(스트라이크)</li>
+        <li>입력한 숫자가 포함되어 있으나 자리수가 동일하지않으면 1 Ball(볼)</li>
+        <li>입력한 숫자가 전혀 포함되어 있지 않으면 Out(아웃)</li>
+        <li>3스트라이크면 1게임 종료</li>
+        <li>플레이 예시 <br> 컴숫자(429) > 내추측숫자(417) > 1S <br>
+            컴숫자(429) > 내추측숫자(491) > 1S 1B <br>
+            컴숫자(429) > 내추측숫자(742) > 2B <br>
+            컴숫자(429) > 내추측숫자(381) > Out
+        </li>
+    </ol>
+    <h3>제작 규칙</h3>
+    <ul>
+        <li>1게임을 완료한 시간을 기록할 것</li>
+        <li>게임을 진행하면서 숫자 추측 시도 횟수도 기록할 것</li>
+        <li>페이지를 리프레쉬하거나 내부 프로그램을 종료하기 전까지의 기록을 오름차순으로 정렬하여 출력할 것</li>
+    </ul>
+    <button type="button" id="startBtn">게임 시작</button>
+    <input type="number" id="guess">
+    <button type="button" id="guessBtn">입력</button>
+    <div id="print"></div>
+    <hr>
+    <button type="button" id="rankBtn">게임기록 조회</button>
+    <ol id="rankList"></ol>
+    <script>
+        const num = [];
+        let startTime = 0;
+        let tryCount = 0;
+        let gameInfo = {};
+
+        document.getElementById('startBtn').addEventListener('click', () => {
+            document.getElementById('print').innerText = '';
+
+            for (let i = 0; i < 3; i++) {
+                num[i] = Math.floor(Math.random() * 10);
+                for (let j = 0; j < i; j++) {
+                    if (num[i] == num[j]) {
+                        i--;
+                        break;
+                    }
+                }
+            }
+
+            startTime = new Date();
+            console.log(num);
+            gameInfo.name = num[0].toString() + num[1].toString() + num[2].toString();
+            gameInfo.created = `${startTime.getFullYear()}-${startTime.getMonth() + 1}-${startTime.getDate()} ${startTime.getHours()}:${startTime.getMinutes()}:${startTime.getSeconds()}`;
+            document.getElementById('guess').value = '';
+            document.getElementById('guess').focus();
+        });
+
+        async function save(itemObj) {
+            try {
+                const url = 'http://ghkim1031.dothome.co.kr/api/items/create';
+                const config = {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: JSON.stringify(itemObj)
+                };
+                const resp = await fetch(url, config);
+                const result = await resp.json();
+                return await result;
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        function validMyNum(myNum) {
+            if (myNum.length != 3 || isNaN(myNum) || new Set(myNum.split("")).size != 3) {
+                document.getElementById('print').innerHTML += '잘못된 값입니다.<br>';
+            } else {
+                return true;
+            }
+        }
+
+        document.getElementById('guessBtn').addEventListener('click', () => {
+            document.getElementById('guess').focus();
+            if (validMyNum(document.getElementById('guess').value)) {
+                tryCount++;
+                let guessNum = document.getElementById('guess').value;
+                let strikeCount = 0;
+                let ballCount = 0;
+                let itemObj = {};
+
+                for (let i = 0; i < 3; i++) {
+                    for (let j = 0; j < 3; j++) {
+                        if (num[i] == guessNum.charAt(j)) {
+                            if (i == j) {
+                                strikeCount++;
+                            } else {
+                                ballCount++;
+                            }
+                        }
+                    }
+                }
+
+                if (strikeCount == 0 && ballCount == 0) {
+                    document.getElementById('print').innerText += `${tryCount}째 시도 ${guessNum}: out`;
+                }
+                else if (ballCount == 0) {
+                    document.getElementById('print').innerText += `${tryCount}째 시도 ${guessNum}: ${strikeCount}S`;
+                }
+                else if (strikeCount == 0) {
+                    document.getElementById('print').innerText += `${tryCount}째 시도 ${guessNum}: ${ballCount}B`;
+                } else {
+                    document.getElementById('print').innerText += `${tryCount}째 시도 ${guessNum}: ${strikeCount}S${ballCount}B`;
+                }
+                document.getElementById('print').innerHTML += '<br>';
+
+                if (strikeCount == 3) {
+                    const now = new Date();
+                    let playTime = now - startTime;
+                    gameInfo.price = playTime;
+                    gameInfo.category_id = tryCount;
+                    gameInfo.modified = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
+                    document.getElementById('print').innerText += `정답입니다. 플레이타임: ${Math.floor(playTime / 1000 / 60)}분 ${Math.floor((playTime / 1000 / 60 - Math.floor(playTime / 1000 / 60)) * 60)}초`;
+                    gameInfo.description = document.getElementById('print').innerText;
+                    console.log(gameInfo);
+                    tryCount = 0;
+
+                    save(gameInfo).then(result => {
+                        console.log(result);
+                        alert(result.message);
+                    });
+                }
+            }
+        });
+
+        async function getGameList() {
+            try {
+                const url = "http://ghkim1031.dothome.co.kr/api/items/read";
+                const resp = await fetch(url);
+                const respText = await resp.text();
+                const itemsObj = await JSON.parse(respText);
+                return await itemsObj;
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        async function deleteItemOfServer(ino) {
+            try {
+                const url = 'http://ghkim1031.dothome.co.kr/api/items/delete';
+                const config = {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: JSON.stringify({ id: ino })
+                };
+                const resp = await fetch(url, config);
+                const result = await resp.json();
+                return await result;
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        function printRankList() {
+            getGameList().then(result => {
+                result.items.sort(function (a, b) { return a.price - b.price });
+                let str = '<h3>순위표</h3><ol>';
+                result.items.forEach(elem => {
+                    str += `<li>${Math.floor(elem.price / 1000 / 60)}분 ${Math.floor((elem.price / 1000 / 60 - Math.floor(elem.price / 1000 / 60)) * 60)}초 <button type="button" id="delete" data-ino="${elem.id}">삭제</button></li>`;
+                })
+                str += '</ol>';
+                document.getElementById('rankList').innerHTML = str;
+            });
+        }
+
+        document.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (e.target.id == 'rankBtn') {
+                printRankList();
+            }
+            else if (e.target.id == 'delete') {
+                deleteItemOfServer(e.target.dataset.ino).then(result => {
+                    console.log(result);
+                    alert(result.message);
+                });
+
+                printRankList();
+            }
+        });
+    </script>
+</body>
+</html>
